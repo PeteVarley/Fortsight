@@ -1,5 +1,13 @@
-<p>
-  Today's top competitor is - 
+<h2>Today's Players</h2>
 
-  {{competitor}}
-</p>
+<ul class="players">
+  <li *ngFor="let player of players"
+      [class.selected]="player === selectedPlayer"
+      (click)="onSelect(player)">
+
+    <span class="badge">{{player.id}}</span> {{player.name}}
+  </li>
+</ul>
+
+<app-player-detail [player]="selectedPlayer"></app-player-detail>
+
