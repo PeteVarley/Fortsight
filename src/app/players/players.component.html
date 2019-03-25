@@ -1,3 +1,21 @@
-<p>
-  players works!
-</p>
+<h2>Today's Players</h2>
+
+<ul class="players">
+  <li *ngFor="let player of players">
+    <a routerLink="/detail/{{player.id}}">
+      <span class="badge">{{player.id}}</span> {{player.name}}
+    </a>
+    <button class="delete" title="delete player"
+              (click)="delete(player)">x
+    </button>
+  </li>
+</ul>
+<div>
+  <label>Player name:
+    <input #playerName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(playerName.value); playerName.value=''">
+    add
+  </button>
+</div>
