@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Player } from '../player';
 import { PlayerService } from '../player.service';
 
@@ -10,10 +11,7 @@ import { PlayerService } from '../player.service';
 })
 
 export class PlayersComponent implements OnInit {
-
   players: Player[];
-
-  selectedPlayer = Player;
 
   constructor(private playerService: PlayerService) { }
 
@@ -26,9 +24,18 @@ export class PlayersComponent implements OnInit {
       .subscribe(players => this.players = players);
   }
 
-  onSelect(player: Player): void {
-    // @ts-ignore
-    this.selectedPlayer = player;
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.playerService.addPlayer({ name } as Player)
+      .subscribe(player => {
+        this.players.push(player);
+      });
+  }
+
+  delete(player: Player): void {
+    this.players = this.players.filter(h => h !== player);
+    this.playerService.deletePlayer(player).subscribe();
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../player';
 import { PlayerService } from '../player.service';
-import Platform = NodeJS.Platform;
 
 @Component({
   selector: 'app-dashboard',
