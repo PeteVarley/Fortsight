@@ -12,7 +12,12 @@ import Scout from 'scout-sdk-server';
 import { environment } from '../environments/environment';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders(
+    { 'Content-Type': 'application/json',
+               'Accept': 'application/com.scoutsdk.graph+json; version=1.1.0; charset=utf8',
+              'Scout-App': environment.clientId,
+        }
+      ),
 };
 
 @Injectable({
@@ -20,16 +25,18 @@ const httpOptions = {
 })
 export class PlayerService {
 
-  private playersUrl = 'https://jsonplaceholder.typicode.com/users';  // URL to web api
+  private playersUrl = 'https://api.scoutsdk.com/graph';  // URL to web api
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  /** GET players from the FortSight server */
+  /** Post */
 
-    getPlayers(): Observable<Player[]> {
-      return this.http.get<Player[]>(this.playersUrl)
+  getPlayers(): Observable<Player[]> {
+    const b = {query:'query MyNamedTitleQuery($title: String) { title(identifier: $title) { id, name } }', variables: { title: 'fortnite' }};
+
+    return this.http.post<Player[]>(this.playersUrl, b, httpOptions )
         .pipe(
           tap(_ => this.log('fetched players')),
           catchError(this.handleError<Player[]>('getPlayers', []))
