@@ -7,6 +7,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Player } from './player';
 import { MessageService } from './message.service';
 
+import Scout from 'scout-sdk-server';
+
+import { environment } from '../environments/environment';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -16,20 +20,35 @@ const httpOptions = {
 })
 export class PlayerService {
 
-  private playersUrl = 'api/players';  // URL to web api
+  private playersUrl = 'https://jsonplaceholder.typicode.com/users';  // URL to web api
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
-    /** GET players from the server */
-    getPlayers(): Observable<Player[]> {
-      return this.http.get<Player[]>(this.playersUrl)
-        .pipe(
-          tap(_ => this.log('fetched players')),
-          catchError(this.handleError<Player[]>('getPlayers', []))
-        );
-    }
+  /** GET players from the FortSight server */
+
+  async getPlayers() {
+    await Scout.configure({
+      clientId: environment.clientId,
+      clientSecret: environment.clientSecret,
+      scope: 'public.read'
+    });
+    const titles = await Scout.titles.list();
+
+    console.log(titles);
+
+    return titles;
+  }
+
+    // /** GET players from the server */
+    // getPlayers(): Observable<Player[]> {
+    //   return this.http.get<Player[]>(this.playersUrl)
+    //     .pipe(
+    //       tap(_ => this.log('fetched players')),
+    //       catchError(this.handleError<Player[]>('getPlayers', []))
+    //     );
+    // }
 
   /** GET hero by id. Return `undefined` when id not found */
   getPlayerNo404<Data>(id: number): Observable<Player> {
@@ -54,44 +73,15 @@ export class PlayerService {
     );
   }
 
-  /* GET heroes whose name contains search term */
+  /* GET players whose name contains search term */
   searchPlayers(term: string): Observable<Player[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
+      // if not search term, return empty player array.
       return of([]);
     }
     return this.http.get<Player[]>(`${this.playersUrl}/?name=${term}`).pipe(
       tap(_ => this.log(`found heroes matching "${term}"`)),
       catchError(this.handleError<Player[]>('searchPlayers', []))
-    );
-  }
-
-  /** Save methods */
-
-  /** POST: add a new player to the server */
-  addPlayer(player: Player): Observable<Player> {
-    return this.http.post<Player>(this.playersUrl, player, httpOptions).pipe(
-      tap((newPlayer: Player) => this.log(`added player w/ id=${newPlayer.id}`)),
-      catchError(this.handleError<Player>('addPlayer'))
-    );
-  }
-
-  /** DELETE: delete the player from the server */
-  deletePlayer(player: Player | number): Observable<Player> {
-    const id = typeof player === 'number' ? player : player.id;
-    const url = `${this.playersUrl}/${id}`;
-
-    return this.http.delete<Player>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted player id=${id}`)),
-      catchError(this.handleError<Player>('deletePlayer'))
-    );
-  }
-
-  /** PUT: update the hero on the server */
-  updatePlayer(player: Player): Observable<any> {
-    return this.http.put(this.playersUrl, player, httpOptions).pipe(
-      tap(_ => this.log(`updated player id=${player.id}`)),
-      catchError(this.handleError<any>('updatePlayer'))
     );
   }
 
