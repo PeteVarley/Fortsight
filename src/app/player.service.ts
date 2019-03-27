@@ -28,27 +28,13 @@ export class PlayerService {
 
   /** GET players from the FortSight server */
 
-  async getPlayers() {
-    await Scout.configure({
-      clientId: environment.clientId,
-      clientSecret: environment.clientSecret,
-      scope: 'public.read'
-    });
-    const titles = await Scout.titles.list();
-
-    console.log(titles);
-
-    return titles;
-  }
-
-    // /** GET players from the server */
-    // getPlayers(): Observable<Player[]> {
-    //   return this.http.get<Player[]>(this.playersUrl)
-    //     .pipe(
-    //       tap(_ => this.log('fetched players')),
-    //       catchError(this.handleError<Player[]>('getPlayers', []))
-    //     );
-    // }
+    getPlayers(): Observable<Player[]> {
+      return this.http.get<Player[]>(this.playersUrl)
+        .pipe(
+          tap(_ => this.log('fetched players')),
+          catchError(this.handleError<Player[]>('getPlayers', []))
+        );
+    }
 
   /** GET hero by id. Return `undefined` when id not found */
   getPlayerNo404<Data>(id: number): Observable<Player> {
