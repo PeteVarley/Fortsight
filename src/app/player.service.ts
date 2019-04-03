@@ -23,7 +23,8 @@ const httpOptions = {
 })
 export class PlayerService {
 
-  private playersUrl = 'https://api.scoutsdk.com/graph';  // URL to web api
+  private playerUrl = 'https://api.scoutsdk.com/graph';  // URL to web api
+  private playerId = 'AQUACAGRzjVHkjKvTIpbF3ibQPec';
 
   constructor(
     private http: HttpClient,
@@ -31,22 +32,12 @@ export class PlayerService {
 
   /** Post */
 
-  getPlayers(): Observable<Player[]> {
-    const playersQuery = {query: 'query { players(title: "fortnite", platform: "epic", identifier: "MXLS") ' +
-        '{results{player{handle,playerId}}}}'};
+  getPlayer(playerId): Observable<Player> {
+    const playerQuery = {query: `query { player(title: "fortnite", id: "${this.playerId}", segment: "*") `
+        + `{id, metadata {key,name,value,displayValue}stats{metadata {key,name,isReversed}value,displayValue}segments`
+        + `{metadata {key,name,value,displayValue}stats {metadata {key,name,isReversed}value,displayValue}}}}`};
 
-    return this.http.post<Player[]>(this.playersUrl, playersQuery, httpOptions )
-        .pipe(
-          tap(_ => this.log('fetched players')),
-          catchError(this.handleError<Player[]>('getPlayers', []))
-        );
-  };
-
-  getPlayer(playerId: number): Observable<Player> {
-    const playersQuery = {query: 'query { players(title: "fortnite", platform: "epic", identifier: "MXLS") ' +
-        '{results{player{playerId}}}}'};
-
-    return this.http.post<Player>(this.playersUrl, playersQuery, httpOptions )
+    return this.http.post<Player>(this.playerUrl, playerQuery, httpOptions )
       .pipe(
       tap(_ => this.log(`fetched hero id=${playerId}`)),
       catchError(this.handleError<Player>(`getHero id=${playerId}`))
