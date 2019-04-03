@@ -7,14 +7,12 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Player } from './player';
 import { MessageService } from './message.service';
 
-import Scout from 'scout-sdk-server';
-
 import { environment } from '../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders(
     { 'Content-Type': 'application/json',
-               'Accept': 'application/com.scoutsdk.graph+json; version=1.1.0; charset=utf8',
+               Accept: 'application/com.scoutsdk.graph+json; version=1.1.0; charset=utf8',
               'Scout-App': environment.clientId,
         }
       ),
@@ -34,48 +32,25 @@ export class PlayerService {
   /** Post */
 
   getPlayers(): Observable<Player[]> {
-    const b = {query:'query MyNamedTitleQuery($title: String) { title(identifier: $title) { id, name } }', variables: { title: 'fortnite' }};
+    const playersQuery = {query: 'query { players(title: "fortnite", platform: "epic", identifier: "MXLS") ' +
+        '{results{player{handle,playerId}}}}'};
 
-    return this.http.post<Player[]>(this.playersUrl, b, httpOptions )
+    return this.http.post<Player[]>(this.playersUrl, playersQuery, httpOptions )
         .pipe(
           tap(_ => this.log('fetched players')),
           catchError(this.handleError<Player[]>('getPlayers', []))
         );
-    }
+  };
 
-  /** GET hero by id. Return `undefined` when id not found */
-  getPlayerNo404<Data>(id: number): Observable<Player> {
-    const url = `${this.playersUrl}/?id=${id}`;
-    return this.http.get<Player[]>(url)
+  getPlayer(playerId: number): Observable<Player> {
+    const playersQuery = {query: 'query { players(title: "fortnite", platform: "epic", identifier: "MXLS") ' +
+        '{results{player{playerId}}}}'};
+
+    return this.http.post<Player>(this.playersUrl, playersQuery, httpOptions )
       .pipe(
-        map(players => players[0]), // returns a {0|1} element array
-        tap(p => {
-          const outcome = p ? `fetched` : `did not find`;
-          this.log(`${outcome} player id=${id}`);
-        }),
-        catchError(this.handleError<Player>(`getPlayer id=${id}`))
+      tap(_ => this.log(`fetched hero id=${playerId}`)),
+      catchError(this.handleError<Player>(`getHero id=${playerId}`))
       );
-  }
-
-  /** GET hero by id. Will 404 if id not found */
-  getPlayer(id: number): Observable<Player> {
-    const url = `${this.playersUrl}/${id}`;
-    return this.http.get<Player>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<Player>(`getPlayer id=${id}`))
-    );
-  }
-
-  /* GET players whose name contains search term */
-  searchPlayers(term: string): Observable<Player[]> {
-    if (!term.trim()) {
-      // if not search term, return empty player array.
-      return of([]);
-    }
-    return this.http.get<Player[]>(`${this.playersUrl}/?name=${term}`).pipe(
-      tap(_ => this.log(`found heroes matching "${term}"`)),
-      catchError(this.handleError<Player[]>('searchPlayers', []))
-    );
   }
 
   /**

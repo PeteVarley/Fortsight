@@ -25,10 +25,14 @@ export class PlayerDetailComponent implements OnInit {
   }
 
   getPlayer(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const playerId = +this.route.snapshot.paramMap.get('playerId');
     // @ts-ignore
-    this.playerService.getPlayer(id)
-      .subscribe(player => this.player = player);
+    this.playerService.getPlayer(playerId)
+      .subscribe(response => {
+        const player = response;
+        console.log('response', response);
+        return player;
+      });
   }
 
   goBack(): void {

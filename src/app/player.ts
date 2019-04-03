@@ -1,5 +1,5 @@
 export class Player {
-  id: number;
-  name: string;
-  notes: string;
+  handle: string;
+  playerId: string;
+
 }

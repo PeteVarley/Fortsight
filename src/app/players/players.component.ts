@@ -21,6 +21,12 @@ export class PlayersComponent implements OnInit {
 
   getPlayers(): void {
     this.playerService.getPlayers()
-      .subscribe(players => this.players = players);
+      .subscribe(response => {
+        // display its headers
+        const players = response.data.players.results;
+        console.log('response', response);
+        console.error('players', players);
+        return players.player;
+      });
   }
 }

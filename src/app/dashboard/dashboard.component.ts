@@ -18,7 +18,12 @@ export class DashboardComponent implements OnInit {
 
   getPlayers(): void {
     this.playerService.getPlayers()
-      .subscribe(players => this.players = players.slice(1, 5));
+      .subscribe(response => {
+        // display its headers
+        const players = response.data.players.results;
+        console.error('players', players);
+        return players;
+      });
   }
 
 }
