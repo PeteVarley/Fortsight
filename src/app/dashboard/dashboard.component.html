@@ -1,3 +1,23 @@
-<h3>Stats</h3>
+<div *ngIf="player">
 
-<h1>{{player.id}}</h1>
+  <h3>Stats</h3>
+
+  <h2>{{player.id}}</h2>
+  <li *ngFor="let metadata of player.metadata">
+    {{metadata["name"]}}
+    {{metadata["displayValue"]}}
+  </li>
+
+  <li *ngFor="let stats of player.stats">
+    {{stats['metadata']['key']}}
+    {{stats["displayValue"]}}
+  </li>
+
+  <li *ngFor="let segments of player.segments">
+    {{segments['metadata']['0']['displayValue']}}
+    {{segments['metadata']['1']['name']}}
+    {{segments['metadata']['1']['displayValue']}}
+
+  </li>
+
+</div>

@@ -9,7 +9,7 @@ import { PlayerService } from '../player.service';
 })
 export class DashboardComponent implements OnInit {
   player: Player;
-  private playerId: number;
+  private playerId: 'AQUACAGRzjVHkjKvTIpbF3ibQPec';
 
   constructor(
     private playerService: PlayerService,
@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   getPlayer(): void {
     this.playerService.getPlayer(this.playerId)
       .subscribe(response => {
+        // @ts-ignore
         this.player = response.data.player;
         console.error('this.player', this.player);
         return this.player;

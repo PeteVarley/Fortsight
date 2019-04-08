@@ -39,8 +39,8 @@ export class PlayerService {
 
     return this.http.post<Player>(this.playerUrl, playerQuery, httpOptions )
       .pipe(
-      tap(_ => this.log(`fetched hero id=${playerId}`)),
-      catchError(this.handleError<Player>(`getHero id=${playerId}`))
+      tap(_ => this.log(`fetched player id=${this.playerId}`)),
+      catchError(this.handleError<Player>(`getPlayer id=${this.playerId}`))
       );
   }
 
