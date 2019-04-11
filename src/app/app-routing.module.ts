@@ -8,7 +8,6 @@ import { PlayerDetailComponent } from './player-detail/player-detail.component';
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'detail/:playerId', component: PlayerDetailComponent },
 ];
 
 @NgModule({

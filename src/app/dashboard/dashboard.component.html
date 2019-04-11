@@ -1,8 +1,8 @@
 <div *ngIf="player">
+  <h2>{{player.id}}</h2>
 
   <h3>Stats</h3>
 
-  <h2>{{player.id}}</h2>
   <li *ngFor="let metadata of player.metadata">
     {{metadata["name"]}}
     {{metadata["displayValue"]}}
