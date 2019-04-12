@@ -24,7 +24,7 @@ const httpOptions = {
 export class PlayerService {
 
   private playerUrl = 'https://api.scoutsdk.com/graph';  // URL to web api
-  private playerId = 'AQUACAGRzjVHkjKvTIpbF3ibQPec';
+  private playerId = environment.myPlayerId;
 
   constructor(
     private http: HttpClient,

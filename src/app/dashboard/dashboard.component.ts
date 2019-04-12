@@ -9,7 +9,7 @@ import { PlayerService } from '../player.service';
 })
 export class DashboardComponent implements OnInit {
   player: Player;
-  private playerId: 'AQUACAGRzjVHkjKvTIpbF3ibQPec';
+  private playerId: string;
 
   constructor(
     private playerService: PlayerService,
