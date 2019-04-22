@@ -1,0 +1,40 @@
+/* Dashboard's private CSS styles */
+
+#dashboardPlayerHeaderWrapper {
+  width: 100%;
+  position:relative;
+  background-color: rgba(105, 104, 98, 0.31);
+}
+
+#playerName{
+  float: left;
+  padding-top: 1%;
+  padding-right: 1%;
+}
+
+#playerId{
+  padding-top: 1%;
+  float: left;
+}
+
+#stats{
+  clear: both;
+}
+
+h1 {
+  font-size: 150%;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 125%;
+  margin-top: 1%;
+  padding-top: 0;
+  font-color: #ffffff;
+}
+
+h3 {
+  font-size: 100%;
+  margin-top: 1%;
+  padding-top: 0;
+}

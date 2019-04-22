@@ -7,13 +7,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Player } from './player';
 import { MessageService } from './message.service';
 
-import { environment } from '../environments/environment';
-
 const httpOptions = {
   headers: new HttpHeaders(
     { 'Content-Type': 'application/json',
                Accept: 'application/com.scoutsdk.graph+json; version=1.1.0; charset=utf8',
-              'Scout-App': environment.clientId,
+              'Scout-App': '3909bef4-ecb2-48b5-b794-ce849327df71',
         }
       ),
 };
@@ -24,7 +22,7 @@ const httpOptions = {
 export class PlayerService {
 
   private playerUrl = 'https://api.scoutsdk.com/graph';  // URL to web api
-  private playerId = environment.myPlayerId;
+  private playerId = 'AgUACAbNHryOsdXjS6jmtd3GQS22';
 
   constructor(
     private http: HttpClient,

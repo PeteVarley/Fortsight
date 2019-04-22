@@ -1,7 +1,14 @@
 <div *ngIf="player">
-  <h2>MXLS</h2>
-  <h2>{{player.id}}</h2>
+  <div id="dashboardPlayerHeaderWrapper">
+    <div id="playerName">
+      <h2>MXLS</h2>
+    </div>
+    <div id="playerId">
+      <h2>{{player.id}}</h2>
+    </div>
+  </div>
 
+  <div id="stats">
   <h3>Stats</h3>
 
   <li *ngFor="let metadata of player.metadata">
@@ -20,5 +27,6 @@
     {{segments['metadata']['1']['displayValue']}}
 
   </li>
+  </div>
 
 </div>
