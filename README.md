@@ -8,6 +8,10 @@ This application uses Scout Gaming Platform to access the Fortnight API.
 This is a working guide, demostrating how to use Scout Gaming Platform and Angular CLI to create
 a web page with with your Fortnight Statistics
 
+Learn more about Angular here - https://angular.io/
+
+Learn more about Scout Gaming Platform here - https://www.scoutsdk.com/developers
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
