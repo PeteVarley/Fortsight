@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
 
 import { Player } from './player';
-import { MessageService } from './message.service';
 
 const httpOptions = {
   headers: new HttpHeaders(
@@ -25,8 +23,7 @@ export class PlayerService {
   private playerId = 'AgUACAbNHryOsdXjS6jmtd3GQS22';
 
   constructor(
-    private http: HttpClient,
-    private messageService: MessageService) { }
+    private http: HttpClient) { }
 
   /** Post */
 
@@ -35,34 +32,6 @@ export class PlayerService {
         + `{id, metadata {key,name,value,displayValue}stats{metadata {key,name,isReversed}value,displayValue}segments`
         + `{metadata {key,name,value,displayValue}stats {metadata {key,name,isReversed}value,displayValue}}}}`};
 
-    return this.http.post<Player>(this.playerUrl, playerQuery, httpOptions )
-      .pipe(
-      tap(_ => this.log(`fetched player id=${this.playerId}`)),
-      catchError(this.handleError<Player>(`getPlayer id=${this.playerId}`))
-      );
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-  /** Log a PlayerService message with the MessageService */
-  private log(player: string) {
-    this.messageService.add(`PlayerService: ${player}`);
+    return this.http.post<Player>(this.playerUrl, playerQuery, httpOptions );
   }
 }
