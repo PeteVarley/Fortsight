@@ -9,7 +9,7 @@ const httpOptions = {
   headers: new HttpHeaders(
     { 'Content-Type': 'application/json',
                Accept: 'application/com.scoutsdk.graph+json; version=1.1.0; charset=utf8',
-              'Scout-App': '',
+              'Scout-App': CLIENT_ID,
         }
       ),
 };
