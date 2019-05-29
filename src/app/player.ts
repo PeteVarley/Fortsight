@@ -1,5 +1,10 @@
 export class Player {
-  id: number;
-  name: string;
-  notes: string;
+  id: string;
+  handle: string;
+  playerId: string;
+  data: [];
+  metadata: [];
+  stats: [];
+  segments: [];
+  player: [];
 }

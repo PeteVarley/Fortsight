@@ -1,10 +1,48 @@
-<h3>Top Players</h3>
-<div class="grid grid-pad">
-  <a *ngFor="let player of players" class="col-1-4"
-    routerLink="/detail/{{player.id}}">
-    <div class="module player">
-      <h4>{{player.name}}</h4>
+<div *ngIf="player">
+  <div id="dashboardHeader">
+    <div id="playerName">
+      <p>Player Name: <b>MXLS</b>
     </div>
-  </a>
+    <div id="playerId">
+      <p>Player id: <b>{{player.id}}</b>
+    </div>
+  </div>
+
+  <div class="playerMetadata">
+    <h3>Player Metadata</h3>
+    <ul>
+      <li *ngFor="let metadata of player.metadata">
+        <div class="metadataWrap">
+          {{metadata['name']}}
+          {{metadata['displayValue']}}
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="stats">
+    <h3>Overal Statistics</h3>
+    <li *ngFor="let stats of player.stats">
+      {{stats['metadata']['name']}}
+      {{stats["displayValue"]}}
+    </li>
+  </div>
+
+  <div class="segments">
+    <h3>Statistics Per Game Segment</h3>
+    <div *ngFor="let segments of player.segments;let segmentsIndex = index;">
+      <div class="segmentsMetadata">
+
+        <div class="segmentName">{{segments['metadata'][0]['name']}} </div>
+        <div class="segmentValue">{{segments['metadata'][0]['value']}} </div>
+
+        <div class="segmentStats">
+          <li *ngFor="let stats of segments['stats']">
+              {{stats['metadata']['name']}}
+              {{stats['displayValue']}}
+          </li>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<app-player-search></app-player-search>

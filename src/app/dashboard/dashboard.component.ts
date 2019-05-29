@@ -8,16 +8,28 @@ import { PlayerService } from '../player.service';
   styleUrls: [ './dashboard.component.scss' ]
 })
 export class DashboardComponent implements OnInit {
-  players: Player[] = [];
+  player: Player;
+  private playerId: string;
+  segments: any;
+  stats: any;
+  value: any;
+  innerArray: any;
 
-  constructor(private playerService: PlayerService) { }
+  constructor(
+    private playerService: PlayerService,
+  ) { }
 
-  ngOnInit() {
-    this.getPlayers();
+  ngOnInit(): void {
+    this.getPlayer();
   }
 
-  getPlayers(): void {
-    this.playerService.getPlayers()
-      .subscribe(players => this.players = players.slice(1, 5));
+  getPlayer(): void {
+    this.playerService.getPlayer(this.playerId)
+      .subscribe(response => {
+        // @ts-ignore
+        this.player = response.data.player;
+        console.error('this.player', this.player);
+        return this.player;
+      });
   }
 }
