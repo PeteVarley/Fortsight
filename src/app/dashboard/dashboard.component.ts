@@ -10,6 +10,10 @@ import { PlayerService } from '../player.service';
 export class DashboardComponent implements OnInit {
   player: Player;
   private playerId: string;
+  segments: any;
+  stats: any;
+  value: any;
+  innerArray: any;
 
   constructor(
     private playerService: PlayerService,

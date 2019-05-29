@@ -1,26 +1,5 @@
 /* Dashboard's private CSS styles */
 
-#dashboardPlayerHeaderWrapper {
-  width: 100%;
-  position:relative;
-  background-color: rgba(105, 104, 98, 0.31);
-}
-
-#playerName{
-  float: left;
-  padding-top: 1%;
-  padding-right: 1%;
-}
-
-#playerId{
-  padding-top: 1%;
-  float: left;
-}
-
-#stats{
-  clear: both;
-}
-
 h1 {
   font-size: 150%;
   margin-bottom: 0;
@@ -34,7 +13,66 @@ h2 {
 }
 
 h3 {
-  font-size: 100%;
+  font-size: 150%;
   margin-top: 1%;
   padding-top: 0;
+}
+
+p {
+  font-size: 100%;
+}
+
+#dashboardHeader {
+  width: 100%;
+  position:relative;
+}
+
+#playerName{
+  float: left;
+}
+
+#playerId{
+  clear: both;
+  padding-right: 1%;
+}
+
+.playerMetadata{
+  width: 95%;
+  background-color: #DCDCDC;
+  float: left;
+  margin: 1%;
+  padding: 1%;
+}
+
+.stats{
+  width: 95%;
+  background-color: #D8D8D8;
+  float: left;
+  margin: 1%;
+  padding: 1%;
+}
+
+.value{
+  float:left;
+}
+
+.segments{
+  width: 95%;
+  background-color: #D3D3D3;
+  float: left;
+  margin: 1%;
+  padding: 1%;
+}
+
+.segmentsMetadata {
+  float: left;
+  padding-top: 0%;
+  padding: 2%;
+}
+
+.segmentStats {
+  padding-top: 10px;
+}
+.segmentValue{
+  font-weight: bold;
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Player } from './player';
 
@@ -9,7 +9,7 @@ const httpOptions = {
   headers: new HttpHeaders(
     { 'Content-Type': 'application/json',
                Accept: 'application/com.scoutsdk.graph+json; version=1.1.0; charset=utf8',
-              'Scout-App': '3909bef4-ecb2-48b5-b794-ce849327df71',
+              'Scout-App': '',
         }
       ),
 };
