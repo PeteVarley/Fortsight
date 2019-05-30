@@ -1,7 +1,7 @@
 # Fortsight
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6. 
-It is meant to be a research project to understand how the Fortnight API works and what type of 
+It is meant to be a research project to understand how the Fortnite API works and what type of 
 information is available for a public profile.
 
 This application uses Scout Gaming Platform to access the Fortnight API.
