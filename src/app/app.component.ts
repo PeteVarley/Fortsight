@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {} from 'dotenv/config';
 
 @Component({
   selector: 'app-root',

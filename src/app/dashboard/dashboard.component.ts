@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
   segments: any;
   stats: any;
   value: any;
-  innerArray: any;
 
   constructor(
     private playerService: PlayerService,
