@@ -1,40 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
-const appRoutes: Routes = [
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-  },
-  { path: '/dashboard',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', redirectTo: 'index.html', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'fortsight-demo/dashboard', component: DashboardComponent },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
-    ),
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-  ],
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-
-export class AppModule { }
+export class AppRoutingModule { }
