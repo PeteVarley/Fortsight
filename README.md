@@ -12,3 +12,5 @@ a web page with with your Fortnight Statistics
 Learn more about Angular here - https://angular.io/
 
 Learn more about Scout Gaming Platform here - https://www.scoutsdk.com/developers
+
+Check out this code in action - https://petevarley.github.io/fortsight-demo
