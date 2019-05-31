@@ -1,16 +1,24 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', redirectTo: 'index.html', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-];
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+  ],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppRoutingModule { }
+
+export class AppModule { }
